@@ -1,0 +1,6 @@
+@Value 
+
+ It is used to inject values from external sources, such as property files or environment variables, into Spring-managed beans. This annotation can be applied to fields, constructor parameters, or method parameters.
+
+
+When using the `@Value` annotation, Spring Boot provides multiple ways to resolve the property value. The most common approach is to use the `${property.name}` syntax, where `property.name` corresponds to a key in the property source.
