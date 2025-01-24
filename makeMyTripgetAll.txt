@@ -1,0 +1,21 @@
+@GetMapping("/getFlightONPrice/{departureLocation}/{arrivalLocation}")
+	public List getFlightOnPrice(@PathVariable("departureLocation")String deptloc,
+			@PathVariable("arrivalLocation") String arriloc) {
+		
+		String urlIndiGo="http://localhost:9091/getParticularFlightIndoGo/"+deptloc+"/"+arriloc;
+		 List<Map<String, Object>>  listInDiGo=rt.getForObject(urlIndiGo, List.class);
+	
+		String urlAirIndia="http://localhost:9090/getParticularFlightAirIndia/"+deptloc+"/"+arriloc;
+		 List<Map<String, Object>>  listAirIndia=rt.getForObject(urlAirIndia, List.class);
+		
+		String urlAkasa="http://localhost:9095/getParticularFlightAkasaAir/"+deptloc+"/"+arriloc;
+		 List<Map<String, Object>>  listAkasa=rt.getForObject(urlAkasa, List.class);
+		List al=new ArrayList();
+		List<Map<String, Object>> allFlights = new ArrayList<>();
+	    allFlights.addAll(listInDiGo);
+	    allFlights.addAll(listAirIndia);
+	    allFlights.addAll(listAkasa);
+	    allFlights.sort(Comparator.comparing(flight -> Double.parseDouble(flight.get("price").toString())));
+		return allFlights ;
+		
+}
